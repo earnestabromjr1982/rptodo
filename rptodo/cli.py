@@ -56,6 +56,25 @@ def get_todoer() -> rptodo.Todoer:
         raise typer.Exit(1)
 
 
+@app.command()
+def add(
+    description: list[str] = typer.Argument(...),
+    priority: int = typer.Option(2, "--priority", "-p", min=1, max=3),
+) -> None:
+    """Add a new to-do with a DESCRIPTION."""
+    todoer = get_todoer()
+    todo, error = todoer.add(description, priority)
+    if error:
+        typer.secho(f'Adding to-do failed with "{ERRORS[error]}"', fg=typer.colors.RED)
+        raise typer.Exit(1)
+    else:
+        typer.secho(
+            f"""to-do: "{todo['Description']}" was added """
+            f"""with priority: {priority}""",
+            fg=typer.colors.GREEN,
+        )
+
+
 def _version_callback(value: bool) -> None:
     if value:
         typer.echo(f"{__app_name__} v{__version__}")
