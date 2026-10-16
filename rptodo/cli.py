@@ -83,7 +83,7 @@ def list_all() -> None:
     if len(todo_list) == 0:
         typer.secho("There are no tasks in the to-do list yet", fg=typer.colors.RED)
         raise typer.Exit()
-        typer.secho("\nto-do list:\n", fg=typer.colors.BLUE, bold=True)
+    typer.secho("\nto-do list:\n", fg=typer.colors.BLUE, bold=True)
     columns = (
         "ID.  ",
         "| Priority  ",
